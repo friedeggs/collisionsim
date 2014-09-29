@@ -7,9 +7,12 @@ Ideas go here!
 - Flow Chart
 - Measure spring constant
 
-## Classes
-### Physics
-### Ball
-### Point (x, y)
-
-## Interfaces
+## Schedule
+#### Sept 29
+#### Sept 30
+#### Oct 1
+Finish programming
+#### Oct 4
+Start rotation
+#### Oct 7
+Due Date
