@@ -1,15 +1,15 @@
-collisionsim
+# collisionsim
 ============
-NOOOBODY
 
-Ideas
+Ideas go here!
 
-To do:
-- 1D collision
-- 2D collision
+## To do
+- Flow Chart
+- Measure spring constant
 
-Classes:
-PhysicsBall
-- Point (x, y)
+## Classes
+### Physics
+### Ball
+### Point (x, y)
 
-Interface
+## Interfaces
