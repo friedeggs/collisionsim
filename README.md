@@ -3,6 +3,10 @@
 
 Ideas go here!
 
+## Links
+- Google Doc: https://drive.google.com/folderview?id=0B6uFOHC3RWJkVFo0YnRJTkhVZEE&usp=sharing
+- Lab 1A Requirements: http://www.hmvb.org/apc1415lm.pdf
+
 ## To do
 - Flow Chart
 - Measure spring constant
