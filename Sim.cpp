@@ -3,6 +3,9 @@
 #include "Ball.h"
 #include "Sim.h"
 
+int dim;
+double t;
+vector <Ball> balls;
 
 Sim::Sim(int dimensions)
 {
