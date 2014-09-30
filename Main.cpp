@@ -3,20 +3,26 @@
 #include "Sim.h"
 #include "DataExporter.h"
 
+/** TESTIINGGGGGGGGG!
+ */
 int main()
 {
-	Sim test(2);
+	// Declaration of Variables
+	
+	Sim test(2);	
 	Ball a(2);
 	Ball b(2);
+	DataExporter de("data.csv", test);
+	
+	// Add the two balls
 	
 	test.addBall(a);
 	test.addBall(b);
 	
-	DataExporter de("data.csv", test);
+	// Test: Advance sim by 10 steps and output data.
 	
-	cout << "Ready?";
-	getchar();
-	
+	cout << "Enter any key.";
+	getchar();	
 	de.start();
 	
 	for (int i = 0; i < 10; i++)
@@ -25,8 +31,9 @@ int main()
 		de.log();
 	}
 	
-	if (!de.write())
-		cout << "FAIL";
+	// Output csv
+	
+	de.write();
 	
 	return 0;
 }

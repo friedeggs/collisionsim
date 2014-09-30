@@ -8,12 +8,12 @@ using namespace std;
 class Ball
 {
 	public:
-		Ball(int dim);
-		vector<double> s;
-		vector<double> v;
-		double m;
-		double r;
-		double k;
+		Ball(int dim);			// Constructs a ball in dim dimensions
+		vector<double> s;		// The position vector
+		vector<double> v;		// The velocity vector
+		double m;				// The mass
+		double r;				// The radius (Ball is spherical)
+		double k;				// The spring constant
 }
 ;
 
