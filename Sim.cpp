@@ -21,22 +21,22 @@ void Sim::addBall(Ball ball)
 /** Advances the simulation by the specified time step.
  * Computes the new positions and velocities of all 
  * simulated balls through using the laws of phyics.
- *
- * Though right now it just assigns a random int for
- * every position and velocity component to every ball
- * in the situation. :P
  */
 void Sim::advance(double dt)
 {
-	// RANDOMMMMM
 	
 	for (int i = 0; i < balls.size(); i++)
 	{
-		for (int j = 0; j < dim; j++)
-		{
-			balls[i].s[j] = rand() % 42;
-			balls[i].v[j] = rand() % 42;
-		}
+		tick_s(balls[i], dt);
 	}
 	t += dt;
+}
+
+/** Advances the position vector of the specified ball
+ * as indicated by the ball's current velocity vector.
+ */
+void Sim::tick_s(Ball &ball, double dt)
+{
+	for (int i = 0; i < dim; i++)
+		ball.s[i] += dt * ball.v[i];	
 }

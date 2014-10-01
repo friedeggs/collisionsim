@@ -25,9 +25,9 @@ int main()
 	getchar();	
 	de.start();
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		test.advance(1);
+		test.advance(0.1);
 		de.log();
 	}
 	
