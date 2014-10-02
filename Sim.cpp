@@ -48,7 +48,7 @@ void Sim::tick_s(Ball &ball, double dt)
  * as indicated by the ball's current velocity vector
  * and acceleration vector
  */
-void Sim::tick_s_a(Ball &b1, &b2, double dt)
+void Sim::tick_s_a(Ball &b1, Ball &b2, double dt)
 {
 	/*
 	compression calculations
@@ -63,7 +63,7 @@ void Sim::tick_s_a(Ball &b1, &b2, double dt)
 	x1 = x k2 / (k1 + k2)
 	x2 = x k1 / (k1 + k2)
 	*/
-	int force_const = b1.k * b2.k / (b1.k + b2.k), x;
+	double force_const = b1.k * b2.k / (b1.k + b2.k), x;
 	for (int i = 0; i < dim; i++) {
 		x = b1.r + b2.r - b1.s[i] - b2.s[i];
 		if (x > 0) {
@@ -77,5 +77,8 @@ void Sim::tick_s_a(Ball &b1, &b2, double dt)
  *
  */
 bool Sim::collision (Ball b1, Ball b2) {
-	return distance (b1.s, b2.s) <= b1.r + b2.r;
+	double dist = 0;
+	for (int i = 0 ; i < dim ; i++)
+		dist += (b1.s[i] - b2.s[i]) * (b1.s[i] - b2.s[i]);
+	return dist <= (b1.r + b2.r) * (b1.r + b2.r);
 }
