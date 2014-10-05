@@ -31,20 +31,20 @@ void DataExporter::start()
 {   
 	// Ball label headers	    
     for (int i = 0; i < target->balls.size(); i++)
-    	data << ",Ball " << i << ",,,";
+    	data << ",Ball " << i << ",,,,";
 	data << endl;
 	
 	// Constant parameters
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",m:," << target->balls[i].m << ",,";
+		data << ",m:," << target->balls[i].m << ",,,";
 	data << endl;
 	
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",r:," << target->balls[i].r << ",,";
+		data << ",r:," << target->balls[i].r << ",,,";
 	data << endl;
 	
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",k:," << target->balls[i].k << ",,";
+		data << ",k:," << target->balls[i].k << ",,,";
 	data << endl;
 		
 	// Variable headers
