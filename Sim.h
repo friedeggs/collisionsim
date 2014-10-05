@@ -14,7 +14,7 @@ class Sim
 		void advance(double dt);	// Advances the simulation using the laws of physics
 		
 		void tick_s(Ball &ball, double dt);		// Advances the ball's position based on its velocity
-		void tick_s_a(Ball &b1, Ball &b2, double dt);		// Advances the ball's position based on its velocity and acceleration
+		void tick_v(Ball &b1, Ball &b2, double dt);		// Advances the ball's position based on its velocity and acceleration
 		
 		bool collision (Ball b1, Ball b2);		// Determines if two balls are in contact
 		

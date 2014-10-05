@@ -25,14 +25,33 @@ void Sim::addBall(Ball ball)
  */
 void Sim::advance(double dt)
 {
-	if (collision (balls[0], balls[1])) { // yo a collision is specific to two balls
-		tick_s_a(balls[0], balls [1], dt);
+	for (int i = 0 ; i < balls.size()) - 1 ; i++) {
+		for (int j = i ; j < balls.size() ; j++) {
+			if (collision (balls[i], balls[j])) {
+				tick_v(balls[i], balls [j], dt);
+			}
+		}
 	}
 	for (int i = 0; i < balls.size(); i++)
 	{
 		tick_s(balls[i], dt);
 	}
 	t += dt;
+}
+
+/** Decreases two ball's velocity vectors as they are 
+ *  in a collision
+ */
+void Sim::tick_v(Ball &b1, Ball &b2, double dt)
+{
+	double x, force_const = b1.k * b2.k / (b1.k + b2.k);
+	for (int i = 0; i < dim; i++) {
+		x = b1.r + b2.r - b1.s[i] - b2.s[i];
+		if (x > 0) {
+			b1.v[i] -= (x * force_const / b1.m) * dt;
+			b2.v[i] -= (x * force_const / b2.m) * dt;
+		}
+	}
 }
 
 /** Advances the position vector of the specified ball
@@ -42,35 +61,6 @@ void Sim::tick_s(Ball &ball, double dt)
 {
 	for (int i = 0; i < dim; i++)
 		ball.s[i] += dt * ball.v[i];	
-}
-
-/** Advances the position vector of the specified ball
- * as indicated by the ball's current velocity vector
- * and acceleration vector
- */
-void Sim::tick_s_a(Ball &b1, Ball &b2, double dt)
-{
-	/*
-	compression calculations
-	F1 = F2
-	-k1 x1 = - k2 x2
-	x1 + x2 = x
-	-----------------
-	x1 + k1 / k2 * x1 = x
-	x1 (1 + k1 / k2 ) = x
-	x1 (k1 + k2) / k2 = x
-	-----------------
-	x1 = x k2 / (k1 + k2)
-	x2 = x k1 / (k1 + k2)
-	*/
-	double force_const = b1.k * b2.k / (b1.k + b2.k), x;
-	for (int i = 0; i < dim; i++) {
-		x = b1.r + b2.r - b1.s[i] - b2.s[i];
-		if (x > 0) {
-			b1.s[i] += dt * b1.v[i] - 0.5 * (x * force_const / b1.m) * dt * dt;
-			b2.s[i] += dt * b2.v[i] - 0.5 * (x * force_const / b2.m) * dt * dt;
-		}
-	}
 }
 
 /** Determines whether two balls are in contact
