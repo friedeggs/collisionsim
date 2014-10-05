@@ -12,6 +12,21 @@ int main()
 	Sim test(2);	
 	Ball a(2);
 	Ball b(2);
+	a.m=10;
+	a.s[0]=0;
+	a.s[1]=0;
+	a.r=1;
+	a.v[0]=3;
+	a.v[1]=0;
+	a.k = 900;
+	
+	b.m=10;
+	b.s[0]=2.1;
+	b.s[1]=0;
+	b.r=1;
+	b.v[0]=0;
+	b.v[1]=0;
+	b.k = 900;
 	DataExporter de("data.csv", test);
 	
 	// Add the two balls
@@ -25,9 +40,9 @@ int main()
 	getchar();	
 	de.start();
 	
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 2000; i++)
 	{
-		test.advance(0.1);
+		test.advance(0.001);
 		de.log();
 	}
 	
