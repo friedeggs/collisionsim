@@ -9,15 +9,29 @@ Ideas go here!
 - Simulation Primer: http://www.hmvb.org/Simulation%20Primer.pdf
 
 ## To do
-- Flow Chart
-- Measure spring constant
+1. Flow Chart
+2. Analysis of Spring Constant
+3. Sim
+  1. Finish basic requirements
+  2. Finish rotational
+  3. Excel plots of sample problems
+4. Sample Problems
+  - 2D head-on collision
+  - 2D glancing collision with a motionless target
+  - 2D glancing collision with a moving target
+  - rotational analogues??
+  1. Verification for each sample problem
 
 ## Schedule
-#### Sept 29
-#### Sept 30
-#### Oct 1
-Finish programming
-#### Oct 4
-Start rotation
+#### Oct 5
+- Finish programming (including rotation)
+- Find sample problems
+- Analyze spring constant
+### Oct 6
+- Flow Chart
+- Excel plots
+- Verify sample problems
 #### Oct 7
-Due Date
+- Compile everything into a report
+### Oct 8
+Deadline
