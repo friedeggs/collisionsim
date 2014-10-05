@@ -25,8 +25,8 @@ void Sim::addBall(Ball ball)
  */
 void Sim::advance(double dt)
 {
-	for (int i = 0 ; i < balls.size()) - 1 ; i++) {
-		for (int j = i ; j < balls.size() ; j++) {
+	for (int i = 0; i < balls.size() - 1; i++) {
+		for (int j = i + 1; j < balls.size(); j++) {
 			if (collision (balls[i], balls[j])) {
 				tick_v(balls[i], balls [j], dt);
 			}
@@ -39,19 +39,30 @@ void Sim::advance(double dt)
 	t += dt;
 }
 
-/** Decreases two balls' velocity vectors as they are 
- *  in a collision
+/** Advances the velocity vectors of the two balls 
+ * as if they are in a collision.
  */
 void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 {
-	double x, force_const = b1.k * b2.k / (b1.k + b2.k);
-	for (int i = 0; i < dim; i++) {
-		x = b1.r + b2.r - b1.s[i] - b2.s[i];
-		if (x > 0) {
-			b1.v[i] -= (x * force_const / b1.m) * dt;
-			b2.v[i] -= (x * force_const / b2.m) * dt;
-		}
-	}
+	// The force constant is derived from Newton Law 3: F1 = F2.
+	double force_const = b1.k * b2.k / (b1.k + b2.k);
+	vector<double> strain(dim);
+	vector<double> ds = b1.dist(b2);
+	vector<double> relaxed_ds = b1.unstrained_r(b2);
+
+	// Compute the compression
+	
+	for (int i = 0; i < dim; i++)	
+		strain[i] = relaxed_ds[i] - ds[i];
+		
+	// Compute the spring accelerations and adjust v's accordingly
+	
+	for (int i = 0; i < dim; i++)
+	{
+		double force = strain[i] * force_const;
+		b1.v[i] -= (force / b1.m) * dt;
+		b2.v[i] += (force / b2.m) * dt;
+	}	
 }
 
 /** Advances the position vector of the specified ball
