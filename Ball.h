@@ -16,6 +16,7 @@ class Ball
 		double k;				// The spring constant
 		
 		vector<double> dist(Ball &ball); // Returns the relative s vector to ball
+		vector<double> unstrained_r(Ball &ball); // Returns a relative s vector to ball
 }
 ;
 
