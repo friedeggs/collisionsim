@@ -14,6 +14,8 @@ class Ball
 		double m;				// The mass
 		double r;				// The radius (Ball is spherical)
 		double k;				// The spring constant
+		
+		vector<double> dist(Ball &ball); // Returns the relative s vector to ball
 }
 ;
 

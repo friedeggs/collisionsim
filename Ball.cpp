@@ -20,3 +20,15 @@ Ball::Ball(int dim)
 		k = rand()%42;
 	}
 }
+
+/** Computes the distance between this ball and 
+ *  the specified ball. Returns a position vector
+ *  pointing from this ball to the specified ball.
+ */
+vector<double> Ball::dist(Ball &ball)
+{
+	vector<double> ds(ball.s.size());
+	for (int i = 0; i < s.size(); i++)
+		ds.push_back(s[i] - ball.s[i]);
+	return ds;
+}
