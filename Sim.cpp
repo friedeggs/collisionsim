@@ -39,7 +39,7 @@ void Sim::advance(double dt)
 	t += dt;
 }
 
-/** Decreases two ball's velocity vectors as they are 
+/** Decreases two balls' velocity vectors as they are 
  *  in a collision
  */
 void Sim::tick_v(Ball &b1, Ball &b2, double dt)
