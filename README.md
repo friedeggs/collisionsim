@@ -22,16 +22,20 @@ Ideas go here!
   - rotational analogues??
   1. Verification for each sample problem
 
+
 ## Schedule
 #### Oct 5
 - Finish programming (including rotation)
 - Find sample problems
 - Analyze spring constant
+
 ### Oct 6
 - Flow Chart
 - Excel plots
 - Verify sample problems
+
 #### Oct 7
 - Compile everything into a report
+
 ### Oct 8
 Deadline
