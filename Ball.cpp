@@ -14,12 +14,12 @@ Ball::Ball(int dim)
 {
 	for (int i = 0; i < dim; i++)
 	{
-		s.push_back(rand()%42);
-		v.push_back(rand()%42);
-		m = rand()%42;
-		r = rand()%42;
-		k = rand()%42;
+		s.push_back(0);
+		v.push_back(0);		
 	}
+	m = 1;
+	r = 1;
+	k = 1;
 }
 
 /** Computes the distance between this ball and 
