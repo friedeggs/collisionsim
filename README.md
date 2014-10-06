@@ -16,7 +16,7 @@ Ideas go here!
   2. Finish rotational
   3. Excel plots of sample problems
 4. Sample Problems
-  - 2D head-on collision
+  - 2D head-on collision with motionless target
   - 2D glancing collision with a motionless target
   - 2D glancing collision with a moving target
   - rotational analogues??
