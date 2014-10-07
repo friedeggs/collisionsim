@@ -148,6 +148,10 @@ Sim loadInit()
 	    			else if (params[2] == "k") // Spring constant data
 	    			{        			
 	    				ball.k = atof(params[4].c_str());
+	    			}    
+					else if (params[2] == "w") // Spring constant data
+	    			{        			
+	    				ball.w = atof(params[4].c_str());
 	    			}    	
 	    			
 	    			// Prepare next line
@@ -156,6 +160,7 @@ Sim loadInit()
 						params = split(lines[i], " ");				   			
     			}
 	    		
+	    		ball.I = 2/5 * ball.m * ball.r * ball.r; 	// Recompute I in case m or r changed
 	    		sim.addBall(ball);	// Add ball to sim      	
 	    	} 
 	    	i++;
@@ -199,6 +204,7 @@ bool writeTemplateInit()
 	fout << "  m = 10" << endl;
 	fout << "  r = 1" << endl;
 	fout << "  k = 900" << endl;
+	fout << "  w = 0" << endl;
 	fout << endl;
 	fout << "BALL 1" << endl;
 	fout << "  s = 2.1 0" << endl;
@@ -206,6 +212,7 @@ bool writeTemplateInit()
 	fout << "  m = 10" << endl;
 	fout << "  r = 1" << endl;
 	fout << "  k = 900" << endl;
+	fout << "  w = 0" << endl;
 	
 	cout << "Finished creating " << inpath << endl;
     fout.close();
