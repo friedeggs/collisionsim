@@ -14,7 +14,7 @@ class Sim
 		void advance(double dt);					// Advances the simulation using the laws of physics
 		
 		void tick_s(Ball &ball, double dt);			// Advances the ball's position based on its velocity
-		void tick_v(Ball &b1, Ball &b2, double dt);	// Advances two colliding balls' velocities
+		void tick_v(Ball &b1, Ball &b2, double dt);	// Advances the velocities of two colliding balls
 		
 		bool collision(Ball b1, Ball b2);					// Determines if two balls are in contact
 		double crossz(vector<double> a, vector<double> b);	// Computes the z-component of the cross product
@@ -25,7 +25,7 @@ class Sim
 		double t;					// The current time
 		double u_k;					// The coefficient of kinetic friction between objects
 		int dim;					// The number of dimensions simulated
-		bool rot;					// Rotation is simulated if true
+		bool rot;					// Set true to effect rotational computations
 }
 ;
 

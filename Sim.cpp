@@ -27,6 +27,7 @@ void Sim::addBall(Ball ball)
  */
 void Sim::advance(double dt)
 {
+	// Advance velocity
 	for (int i = 0; i < balls.size() - 1; i++) {
 		for (int j = i + 1; j < balls.size(); j++) {
 			if (collision (balls[i], balls[j])) {
@@ -34,10 +35,12 @@ void Sim::advance(double dt)
 			}
 		}
 	}
+	// Advance displacement
 	for (int i = 0; i < balls.size(); i++)
 	{
 		tick_s(balls[i], dt);
 	}
+	// Advance time
 	t += dt;
 }
 
@@ -45,12 +48,12 @@ void Sim::advance(double dt)
  */
 void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 {
-	// The force constant is derived from Newton Law 3: F1 = F2.
+	// The force constant is derived from Newton's 3rd Law: F1 = F2.
 	double force_const = b1.k * b2.k / (b1.k + b2.k);
-	vector<double> strain(dim);
-	vector<double> ds = b1.dist(b2);
-	vector<double> relaxed_ds = b1.unstrained_r(b2);
-	vector<double> force(dim);
+	vector<double> strain(dim);							// Vector pointing from b1 to b2 of magnitude delta x
+	vector<double> ds = b1.dist(b2);					// Vector connecting centres of b1 and b2
+	vector<double> relaxed_ds = b1.unstrained_r(b2);	// Ideal unstrained touching distance btwn b1 and b2
+	vector<double> force(dim);							// Vector pointing from b1 to b2 of magnitude normal force
 
 	// Compute the compression
 	
@@ -70,21 +73,21 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 	
 	if (rot)
 	{	
-		vector<double> v1_tan(2);
+		vector<double> v1_tan(2);	// tangential velocity solely due to w
 		vector<double> v2_tan(2);
-		vector<double> v1(2);
+		vector<double> v1(2);		// summed tangential velocity
 		vector<double> v2(2);
-		vector<double> r1(2);
+		vector<double> r1(2);		// compressed radius vector
 		vector<double> r2(2);
 		
-		// Compute the (compressed) touching radius vectors of each ball
+		// Compute the compressed radius vectors of each ball
 		
 		for (int i = 0; i < 2; i++)
 		{
-			r1[i] = b1.r / (b1.r + b2.r) * (relaxed_ds[i]);		// Ball 1 relaxed r
+			r1[i] = b1.r / (b1.r + b2.r) * (relaxed_ds[i]);		// Relaxed r Ball 1
 			r1[i] -= strain[i] * force_const / b1.k;			// Subtract Ball 1 compression
 	
-			r2[i] = -b2.r / (b1.r + b2.r) * (relaxed_ds[i]);	// Ball 2 relaxed r
+			r2[i] = -b2.r / (b1.r + b2.r) * (relaxed_ds[i]);	// Relaxed r Ball 2
 			r2[i] -= -strain[i] * force_const / b2.k;			// Subtract Ball 2 compression
 		}
 		
@@ -96,7 +99,8 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 		v2_tan[0] = -r2[1];
 		v2_tan[1] = r2[0];				
 					
-		// Find the tangential component of the surface particle velocity
+		// Find the summed tangential component of the surface velocity,
+		// taking into account both w and v_com
 		
 		double const_1 = (dot(v1_tan, b1.v) / sqabs(v1_tan) + b1.w);	
 		double const_2 = (dot(v2_tan, b2.v) / sqabs(v2_tan) + b2.w);		
@@ -107,7 +111,7 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 			v2[i] = const_2 * v2_tan[i];
 		}
 		
-		// Find the relative tangential velocities
+		// Find the relative tangential velocity, ball 1 to ball 2
 		
 		v1[0] -= v2[0];
 		v1[1] -= v2[1];		
@@ -130,7 +134,7 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 			double T1 = crossz(r1, f_k);
 			double T2 = -crossz(r2, f_k);
 			
-			// Compute angular velocities
+			// Compute change in angular velocities
 			
 			double dw1 = T1 * dt / b1.I;
 			double dw2 = T2 * dt / b2.I;
@@ -152,7 +156,7 @@ void Sim::tick_s(Ball &ball, double dt)
 		ball.s[i] += dt * ball.v[i];	
 }
 
-/** Determines whether two balls are in contact.
+/** Returns true if the two specified balls are in contact.
  */
 bool Sim::collision(Ball b1, Ball b2) 
 {	
