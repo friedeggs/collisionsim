@@ -16,7 +16,10 @@ class Sim
 		void tick_s(Ball &ball, double dt);			// Advances the ball's position based on its velocity
 		void tick_v(Ball &b1, Ball &b2, double dt);	// Advances two colliding balls' velocities
 		
-		bool collision (Ball b1, Ball b2);			// Determines if two balls are in contact
+		bool collision(Ball b1, Ball b2);					// Determines if two balls are in contact
+		double crossz(vector<double> a, vector<double> b);	// Computes the z-component of the cross product
+		double dot(vector<double> a, vector<double> b); 	// Computes the dot product
+		double sqabs(vector<double> d);						// Computes the square of the vector magnitude
 		
 		vector<Ball> balls;			// A list of all of the balls in this simulation
 		double t;					// The current time

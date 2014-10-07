@@ -160,7 +160,7 @@ Sim loadInit()
 						params = split(lines[i], " ");				   			
     			}
 	    		
-	    		ball.I = 2/5 * ball.m * ball.r * ball.r; 	// Recompute I in case m or r changed
+	    		ball.I = 0.4 * ball.m * ball.r * ball.r; 	// Recompute I in case m or r changed
 	    		sim.addBall(ball);	// Add ball to sim      	
 	    	} 
 	    	i++;
