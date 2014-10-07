@@ -6,9 +6,10 @@
 
 /** Constructs a simulation of the specified dimensions.
  */
-Sim::Sim(int dimensions)
+Sim::Sim(int dimensions, bool rotation)
 {
 	dim = dimensions;
+	rot = rotation && dim == 2;		// Right now, we can only do rotation in 2D
 	t = 0;
 }
 

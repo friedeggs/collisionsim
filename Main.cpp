@@ -12,19 +12,24 @@ string inpath = "init.cfg";
 string outpath = "data.csv";
 double dt = 1;
 double end_t = 1;
-double u_k = 0.5;
-int dim = 2;
-bool rotation = true;
 bool loaded = true;
 
-/** A method that splits a string into multiple strings
+/** A method that splits a string into an array of strings
  * based on the given delimiter. Used to aid input parsing.
+ * Delimiter occurences are not included in the returned array.
  */
 vector<string> split(string str, string delim)
 {
+	// Declare Variables
+	
 	vector<string> params;
 	string temp;
 	size_t right = str.find(delim);
+	
+	// Iterate through string, finding occurrences of the 
+	// delimiter. Substring the segment to the array. Erase
+	// the segment from the source string. Continue until 
+	// there are no more delimiter occurrences.
 	
 	while (right != string::npos)
 	{
@@ -32,18 +37,24 @@ vector<string> split(string str, string delim)
 		str.erase(0, right + delim.size());
 		right = str.find(delim);	
 	}	
-	params.push_back(str);
+	params.push_back(str);	// Append the last remaining segment
 	
 	return params;
 }
 
+/** Reads the configuration settings and initial condition values
+ * from file. Creates and returns a Sim object corresponding with
+ * these parameters. Also updates the outpath, dt, and end_t global
+ * varibles if specified. If no init file exists, returns a Sim of
+ * dim = 0, and sets the global loaded bool to false.
+ */
 Sim loadInit()
 {
+	// Read File
+	
 	ifstream fin (inpath.c_str(), ios::in|ios::ate);
     if (fin.is_open())
-    {
-        // Read File
-
+    {       
         int size = fin.tellg();
         fin.seekg (0, ios::beg);
         vector<string>lines;    
@@ -57,7 +68,12 @@ Sim loadInit()
         // Parse Simulation Configuration Data
         
         size_t left = 0, right = 0;
+        double dim = 2;
+        double u_k = 0;
+        bool rotation = false;
         int i = 0;
+        
+        // Iterate through config file line by line
         
         do
         {
@@ -91,9 +107,10 @@ Sim loadInit()
         }
         while (i++ < lines.size() && params.size() > 1);
         
-        // Create Simulation Object
+        // Create Sim Object
         
-        Sim sim(dim);
+        Sim sim(dim, rotation);
+        sim.u_k = u_k;
         
         // Parse Ball Initial Condition Data
         
@@ -133,7 +150,7 @@ Sim loadInit()
 	    				ball.k = atof(params[4].c_str());
 	    			}    	
 	    			
-	    			// Parse next line
+	    			// Prepare next line
 	    			
 	    			if (++i < lines.size())
 						params = split(lines[i], " ");				   			
@@ -149,7 +166,7 @@ Sim loadInit()
     {
         cout << "Error: could not read " << inpath << endl;
         loaded = false;
-        Sim sim(0);
+        Sim sim(0, false);
         return sim;
     }
 }

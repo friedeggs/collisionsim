@@ -14,6 +14,8 @@ class Ball
 		double m;				// The mass
 		double r;				// The radius (Ball is spherical)
 		double k;				// The spring constant
+		double w;				// The angular velocity
+		double I;				// The rotational inertia
 		
 		vector<double> dist(Ball &ball); // Returns the relative s vector to ball
 		vector<double> unstrained_r(Ball &ball); // Returns a relative s vector to ball

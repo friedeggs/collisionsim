@@ -31,22 +31,55 @@ void DataExporter::start()
 {   
 	// Ball label headers	    
     for (int i = 0; i < target->balls.size(); i++)
-    	data << ",Ball " << i << ",,,";
+    {    
+    	data << ",Ball " << i;
+    	for (int j = 0; j < 2 * target->dim; j++)
+    		data << ",";
+    }
 	data << "," << endl;
 	
 	// Constant parameters
+	// Mass values
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",m:," << target->balls[i].m << ",,";
+	{	
+		data << ",m:," << target->balls[i].m;
+		for (int j = 0; j < 2 * target->dim - 1; j++)
+    		data << ",";
+	}
 	data << "," << endl;
 	
+	// Radius values
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",r:," << target->balls[i].r << ",,";
+	{	
+		data << ",r:," << target->balls[i].r;
+		for (int j = 0; j < 2 * target->dim - 1; j++)
+    		data << ",";
+	}
 	data << "," << endl;
 	
+	// Spring constant values
 	for (int i = 0; i < target->balls.size(); i++)
-		data << ",k:," << target->balls[i].k << ",,";
+	{	
+		data << ",k:," << target->balls[i].k;
+		for (int j = 0; j < 2 * target->dim - 1; j++)
+    		data << ",";
+	}
 	data << "," << endl;
-		
+	
+	// Rotation simulation boolean
+	data << ",rot: ,";
+	data << (target->rot ? "true" : "false");
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1) - 1; i++)
+		data << ",";
+	data << endl;
+	
+	// Universal coefficient of kinetic friction
+	data << ",u_k: ,";
+	data << target->u_k;
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1) - 1; i++)
+		data << ",";
+	data << endl;
+			
 	// Variable headers
 	
 	data << "t,";
@@ -56,7 +89,8 @@ void DataExporter::start()
 		for (int j = 0; j < target->dim; j++)
 			data << "s_" << coordNames[j] << ",";
 		for (int j = 0; j < target->dim; j++)
-			data << "v_" << coordNames[j] << ",";			
+			data << "v_" << coordNames[j] << ",";
+		data << "w" << ",";			
 	}
 	data << endl;
 }
@@ -77,6 +111,7 @@ void DataExporter::log()
 			data << target->balls[i].s[j] << ",";
 		for (int j = 0; j < target->dim; j++)
 			data << target->balls[i].v[j] << ",";
+		data << target->balls[i].w << ",";
 	}
 	data << endl;
 }
