@@ -69,14 +69,14 @@ void DataExporter::start()
 	// Rotation simulation boolean
 	data << ",rot: ,";
 	data << (target->rot ? "true" : "false");
-	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1); i++)
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 2)-1; i++)
 		data << ",";
 	data << endl;
 	
 	// Universal coefficient of kinetic friction
 	data << ",u_k: ,";
 	data << target->u_k;
-	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1); i++)
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 2)-1; i++)
 		data << ",";
 	data << endl;
 			
