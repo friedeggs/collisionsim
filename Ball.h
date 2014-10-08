@@ -14,6 +14,7 @@ class Ball
 		double m;				// The mass
 		double r;				// The radius (Ball is spherical)
 		double k;				// The spring constant
+		double theta;			// The angular displacement
 		double w;				// The angular velocity
 		double I;				// The rotational inertia
 		

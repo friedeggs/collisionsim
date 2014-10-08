@@ -17,7 +17,8 @@ Ball::Ball(int dim)
 	m = 1;
 	r = 1;
 	k = 1;
-	w = 0.4 * m * r * r; 	// The rotational inertia of a 2D disk
+	theta = 0;
+	w = 0.4 * m * r * r; 	// The rotational inertia of a sphere
 }
 
 /** Computes the distance between this ball and 

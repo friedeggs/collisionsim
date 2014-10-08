@@ -33,7 +33,7 @@ void DataExporter::start()
     for (int i = 0; i < target->balls.size(); i++)
     {    
     	data << ",Ball " << i;
-    	for (int j = 0; j < 2 * target->dim; j++)
+    	for (int j = 0; j < 2 * target->dim + 1; j++)
     		data << ",";
     }
 	data << "," << endl;
@@ -43,7 +43,7 @@ void DataExporter::start()
 	for (int i = 0; i < target->balls.size(); i++)
 	{	
 		data << ",m:," << target->balls[i].m;
-		for (int j = 0; j < 2 * target->dim - 1; j++)
+		for (int j = 0; j < 2 * target->dim; j++)
     		data << ",";
 	}
 	data << "," << endl;
@@ -52,7 +52,7 @@ void DataExporter::start()
 	for (int i = 0; i < target->balls.size(); i++)
 	{	
 		data << ",r:," << target->balls[i].r;
-		for (int j = 0; j < 2 * target->dim - 1; j++)
+		for (int j = 0; j < 2 * target->dim; j++)
     		data << ",";
 	}
 	data << "," << endl;
@@ -61,7 +61,7 @@ void DataExporter::start()
 	for (int i = 0; i < target->balls.size(); i++)
 	{	
 		data << ",k:," << target->balls[i].k;
-		for (int j = 0; j < 2 * target->dim - 1; j++)
+		for (int j = 0; j < 2 * target->dim; j++)
     		data << ",";
 	}
 	data << "," << endl;
@@ -69,14 +69,14 @@ void DataExporter::start()
 	// Rotation simulation boolean
 	data << ",rot: ,";
 	data << (target->rot ? "true" : "false");
-	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1) - 1; i++)
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1); i++)
 		data << ",";
 	data << endl;
 	
 	// Universal coefficient of kinetic friction
 	data << ",u_k: ,";
 	data << target->u_k;
-	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1) - 1; i++)
+	for (int i = 0; i < target->balls.size() * (2 * target->dim + 1); i++)
 		data << ",";
 	data << endl;
 			
@@ -90,6 +90,7 @@ void DataExporter::start()
 			data << "s_" << coordNames[j] << ",";
 		for (int j = 0; j < target->dim; j++)
 			data << "v_" << coordNames[j] << ",";
+		data << "theta" << ",";
 		data << "w" << ",";			
 	}
 	data << endl;
@@ -111,6 +112,7 @@ void DataExporter::log()
 			data << target->balls[i].s[j] << ",";
 		for (int j = 0; j < target->dim; j++)
 			data << target->balls[i].v[j] << ",";
+		data << target->balls[i].theta << ",";
 		data << target->balls[i].w << ",";
 	}
 	data << endl;

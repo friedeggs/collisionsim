@@ -142,26 +142,23 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 			double T1 = crossz(r1, f_k);
 			double T2 = -crossz(r2, f_k);
 			
-			// Compute change in angular velocities
-			
-			double dw1 = T1 * dt / b1.I;
-			double dw2 = T2 * dt / b2.I;
-				
 			// Compute and store new angular velocities
 			
-			b1.w += dw1;
-			b2.w += dw2;
+			b1.w += T1 * dt / b1.I;
+			b2.w += T2 * dt / b2.I;				
 		}
 	}
 }
 
 /** Advances the position vector of the specified ball
  * as indicated by the ball's current velocity vector.
+ * Also advances the angular position value.
  */
 void Sim::tick_s(Ball &ball, double dt)
 {
+	ball.theta += ball.w * dt;
 	for (int i = 0; i < dim; i++)
-		ball.s[i] += dt * ball.v[i];	
+		ball.s[i] += dt * ball.v[i];					
 }
 
 /** Returns true if the two specified balls are in contact.
