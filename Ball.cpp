@@ -1,5 +1,6 @@
 #include <vector>
 #include <cstdlib>
+#include <iostream>
 #include <cmath>
 #include "Ball.h"
 
@@ -48,6 +49,11 @@ vector<double> Ball::unstrained_r(Ball &ball)
 		ds_magnitude += ds[i] * ds[i];
 	ds_magnitude = sqrt(ds_magnitude);
 	scalar = (r + ball.r) / ds_magnitude;
+	
+	// Warn when excessive strain
+	double strain = 1 - ds_magnitude / (r + ball.r);
+	if (strain > 0.4)
+		cout << "Warning: Excessive strain of " << strain << endl;
 	
 	// Apply the scalar to the relative position vector
 	
