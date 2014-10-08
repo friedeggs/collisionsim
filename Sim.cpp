@@ -128,6 +128,14 @@ void Sim::tick_v(Ball &b1, Ball &b2, double dt)
 				f_k[0] *= -1;
 				f_k[1] *= -1;		
 			}
+			
+			// Compute the change in the velocity due to friction
+			
+			for (int i = 0; i < 2; i++)
+			{
+				b1.v[i] += f_k[i] / b1.m * dt;
+				b2.v[i] -= f_k[i] / b2.m * dt;
+			}
 									
 			// Compute the torques
 			

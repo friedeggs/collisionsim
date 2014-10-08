@@ -4,6 +4,7 @@
 #include <vector>
 #include "Ball.h"
 #include "Sim.h"
+#include <cmath>
 #include "DataExporter.h"
 
 using namespace std;
@@ -63,7 +64,7 @@ Sim loadInit()
         while (getline(fin, line))        
         	lines.push_back(line);               
         fin.close();
-        cout << "Successfully read " << inpath << ": " << size << " bytes" << endl;
+        //cout << "Successfully read " << inpath << ": " << size << " bytes" << endl;
         
         // Parse Simulation Configuration Data
         
@@ -224,6 +225,16 @@ bool writeTemplateInit()
  */
 int main()
 {	
+	/*for (int i = 0; i < 200; i++)
+	{
+		Sim sim = loadInit();
+		sim.balls[1].s[1] = -i * 0.01;
+		while (sim.t < end_t)
+			sim.advance(dt);
+		cout << "b2.sy = " << -i * 0.01 << " ; theta 1 =  " << 180 / 3.14159 * atan(sim.balls[0].v[1] / sim.balls[0].v[0]);
+		cout << " theta 2 = " << 180 / 3.14159 * atan(sim.balls[1].v[1] / sim.balls[1].v[0]) << endl;		
+	}*/
+
 	// Initialize Variables
 	
 	Sim sim = loadInit();	
